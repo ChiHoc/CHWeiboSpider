@@ -32,7 +32,7 @@ class WebController {
     }
 
     @RequestMapping(value = ["/"], method = [RequestMethod.GET])
-    fun index(offset: Int?, limit: Int?): Map<String, List<ArticleVO>> {
+    fun index(offset: Int?, limit: Int?): Map<String, Any> {
         val result: MutableList<ArticleVO> = mutableListOf()
         val articleDOList: List<ArticleDO> = articleMapper.list(offset ?: 0, limit ?: 10)
         for (articleDO in articleDOList) {
@@ -41,6 +41,6 @@ class WebController {
             articleVO.user = userMap[articleDO.userId]?.let { UserVO(it) }
             result.add(articleVO)
         }
-        return mapOf("data" to result)
+        return mapOf("data" to result, "code" to 200)
     }
 }

@@ -10,10 +10,10 @@ package com.chiho.server.pojo
 data class UserVO(var id: String) {
     var nickname: String? = null
     var gender: String? = null
+    var avatar: String? = null
     var location: String? = null
     var birthday: String? = null
     var description: String? = null
-    var verified_reason: String? = null
     var talent: String? = null
     var education: String? = null
     var work: String? = null
@@ -24,10 +24,10 @@ data class UserVO(var id: String) {
     constructor(userDO: UserDO): this(userDO.id) {
         this.nickname = userDO.nickname
         this.gender = userDO.gender
+        this.avatar = userDO.avatar
         this.location = userDO.location
         this.birthday = userDO.birthday
         this.description = userDO.description
-        this.verified_reason = userDO.verified_reason
         this.talent = userDO.talent
         this.education = userDO.education
         this.work = userDO.work

@@ -23,23 +23,24 @@ class AuthFilter : OncePerRequestFilter() {
         filterChain: FilterChain
     ) {
         val encryptToken:String? = request.getHeader("AUTH-TOKEN")
-        if (encryptToken?.let { auth(it) } == true) {
+//        if (encryptToken?.let { auth(it) } == true) {
             filterChain.doFilter(request, response)
-        } else {
-            response.status = HttpStatus.FORBIDDEN.value()
-            response.writer.append(HttpStatus.FORBIDDEN.reasonPhrase)
-            response.writer.flush()
-        }
+//        } else {
+//            response.status = HttpStatus.FORBIDDEN.value()
+//            response.writer.append(HttpStatus.FORBIDDEN.reasonPhrase)
+//            response.writer.flush()
+//        }
     }
 
     private fun auth(encryptToken: String): Boolean {
         return try {
             val token: String = CryptUtils.decryptAndBase64(encryptToken, KEY)
-            if (!token.contains("|")) {
+            val value: Array<String> = token.split("\\|".toRegex()).toTypedArray()
+            if (value.size != 2 || value[0] != "WeiboSpider") {
                 return false
             }
             val now = System.currentTimeMillis()
-            val currTime = token.split("\\|".toRegex()).toTypedArray()[1].toLong()
+            val currTime = value[1].toLong()
             now - currTime <= EXPIRES_TIME
         } catch (e: Exception) {
             false

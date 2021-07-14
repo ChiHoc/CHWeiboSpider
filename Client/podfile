@@ -1,0 +1,3 @@
+target 'WeiboSpiderClient' do
+  pod 'Alamofire'
+end

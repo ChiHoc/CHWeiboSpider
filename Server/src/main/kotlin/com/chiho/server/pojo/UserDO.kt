@@ -10,10 +10,10 @@ package com.chiho.server.pojo
 data class UserDO(var id: String) {
     var nickname: String? = null
     var gender: String? = null
+    var avatar: String? = null
     var location: String? = null
     var birthday: String? = null
     var description: String? = null
-    var verified_reason: String? = null
     var talent: String? = null
     var education: String? = null
     var work: String? = null

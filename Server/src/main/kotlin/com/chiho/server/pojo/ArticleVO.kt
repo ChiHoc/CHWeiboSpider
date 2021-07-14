@@ -13,7 +13,7 @@ data class ArticleVO(var id: String) {
     var articleUrl: String? = null
     var originalPictures: String? = null
     var retweetPictures: String? = null
-    var original: String? = null
+    var original: Boolean = false
     var videoUrl: String? = null
     var publishPlace: String? = null
     var publishTime: String? = null
@@ -25,11 +25,11 @@ data class ArticleVO(var id: String) {
     constructor(articleDO: ArticleDO): this(articleDO.id) {
         this.content = articleDO.content
         this.articleUrl = articleDO.articleUrl
-        this.originalPictures = articleDO.originalPictures
-        this.retweetPictures = articleDO.retweetPictures
+        this.originalPictures = if (articleDO.originalPictures.equals("无")) articleDO.originalPictures else null
+        this.retweetPictures = if (articleDO.retweetPictures.equals("无")) articleDO.retweetPictures else null
         this.original = articleDO.original
-        this.videoUrl = articleDO.videoUrl
-        this.publishPlace = articleDO.publishPlace
+        this.videoUrl = if (articleDO.videoUrl.equals("无")) articleDO.videoUrl else null
+        this.publishPlace = if (articleDO.publishPlace.equals("无")) articleDO.publishPlace else null
         this.publishTime = articleDO.publishTime
         this.publishTool = articleDO.publishTool
         this.upNum = articleDO.upNum

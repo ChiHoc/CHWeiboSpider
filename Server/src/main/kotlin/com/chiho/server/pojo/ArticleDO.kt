@@ -13,7 +13,7 @@ data class ArticleDO(var id: String) {
     var articleUrl: String? = null
     var originalPictures: String? = null
     var retweetPictures: String? = null
-    var original: String? = null
+    var original: Boolean = false
     var videoUrl: String? = null
     var publishPlace: String? = null
     var publishTime: String? = null
