@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28CA76D409D8A85677DDF0CF /* libPods-WeiboSpiderClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3913EEF7903DFA10533B0CAF /* libPods-WeiboSpiderClient.a */; };
+		A104663226B4F1AE005935A1 /* CHImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104663126B4F1AE005935A1 /* CHImage.swift */; };
 		A1675B962680D12700F95B65 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1675B952680D12300F95B65 /* NetworkManager.swift */; };
 		A1675B992680D6CF00F95B65 /* CellRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1675B982680D6CF00F95B65 /* CellRow.swift */; };
 		A16E4D7C26747995000679EE /* WeiboSpiderClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16E4D7B26747995000679EE /* WeiboSpiderClientApp.swift */; };
@@ -43,6 +44,7 @@
 		06163CCB0801B60CEC5CD54C /* Pods-WeiboSpiderClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiboSpiderClient.debug.xcconfig"; path = "Target Support Files/Pods-WeiboSpiderClient/Pods-WeiboSpiderClient.debug.xcconfig"; sourceTree = "<group>"; };
 		3913EEF7903DFA10533B0CAF /* libPods-WeiboSpiderClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiboSpiderClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9134BD65D42EE7A11F8866B7 /* Pods-WeiboSpiderClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiboSpiderClient.release.xcconfig"; path = "Target Support Files/Pods-WeiboSpiderClient/Pods-WeiboSpiderClient.release.xcconfig"; sourceTree = "<group>"; };
+		A104663126B4F1AE005935A1 /* CHImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHImage.swift; sourceTree = "<group>"; };
 		A1675B952680D12300F95B65 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A1675B982680D6CF00F95B65 /* CellRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRow.swift; sourceTree = "<group>"; };
 		A16E4D7826747995000679EE /* WeiboSpiderClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeiboSpiderClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A104663326B4F2F8005935A1 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				A1764B3F268A097A002D7409 /* AsyncImage.swift */,
+				A104663126B4F1AE005935A1 /* CHImage.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		A1675B942680C2E600F95B65 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,9 +128,9 @@
 		A1675B972680D6BA00F95B65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A104663326B4F2F8005935A1 /* Image */,
 				A16E4D7D26747995000679EE /* ContentView.swift */,
 				A1675B982680D6CF00F95B65 /* CellRow.swift */,
-				A1764B3F268A097A002D7409 /* AsyncImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -359,6 +370,7 @@
 				A16E4D7C26747995000679EE /* WeiboSpiderClientApp.swift in Sources */,
 				A1675B992680D6CF00F95B65 /* CellRow.swift in Sources */,
 				A16E4DAA267479B8000679EE /* UserEntry.swift in Sources */,
+				A104663226B4F1AE005935A1 /* CHImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

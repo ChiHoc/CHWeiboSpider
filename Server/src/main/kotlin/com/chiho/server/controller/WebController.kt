@@ -7,6 +7,7 @@ import com.chiho.server.pojo.ArticleVO
 import com.chiho.server.pojo.UserDO
 import com.chiho.server.pojo.UserVO
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -42,5 +43,10 @@ class WebController {
             result.add(articleVO)
         }
         return mapOf("data" to result, "code" to 200)
+    }
+
+    @RequestMapping(value = ["/assets/{userId}/{filename:[^\\.]+}.{extension:.*}"], method = [RequestMethod.GET])
+    fun assets(@PathVariable userId: String, @PathVariable filename: String, @PathVariable extension: String): Map<String, Any> {
+        return mapOf("data" to "${userId}/${filename}.${extension}", "code" to 200)
     }
 }

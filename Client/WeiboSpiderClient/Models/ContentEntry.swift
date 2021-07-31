@@ -12,9 +12,11 @@ struct ContentEntry: Codable {
     var id: String?
     var user: UserEntry?
     var content: String?
+    var retweetUser: String?
+    var retweetContent: String?
     var articleUrl: String?
-    var originalPictures: String?
-    var retweetPictures: String?
+    var originalPictures: Array<String>?
+    var retweetPictures: Array<String>?
     var original: Bool?
     var videoUrl: String?
     var publishPlace: String?

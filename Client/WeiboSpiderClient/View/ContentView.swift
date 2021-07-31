@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var dataList = [ContentEntry]()
     
     @State private var isLoadAll: Bool = false
+    @State private var isLoadFailed: Bool = false
     
     private var RefreshListener: some View {
         HStack {

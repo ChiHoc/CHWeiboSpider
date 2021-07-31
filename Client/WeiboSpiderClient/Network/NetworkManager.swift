@@ -88,6 +88,7 @@ class NetworkManager<ReturnType: Codable>: NSObject {
     
     init(url: String) {
         self.url = url
+        AF.sessionConfiguration.timeoutIntervalForRequest = 8
     }
     
     func fetch(parameters: [String: Any]? = nil, success:@escaping ((_ dataList: ReturnType?) -> Void), failure:@escaping (() -> Void)) {

@@ -6,47 +6,99 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct CellRow: View {
     var data: ContentEntry
+    private let gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .center, spacing: 10) {
-                AvatarView
+                CHImage(src: data.user?.avatar, type: .avatar)
+                    .scaledToFit()
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
                     .overlay(RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.init(red: 0.6, green: 0.6, blue: 0.6), lineWidth: 1))
+                                .stroke(Color.init(red: 0.6, green: 0.6, blue: 0.6), lineWidth: 1))
                 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(data.user?.nickname ?? "")
                         .foregroundColor(Color.init(red: 0.2, green: 0.2, blue: 0.2))
                         .bold()
-                        .font(.headline)
+                        .font(Font.system(size: 15))
+                        .padding(.top, 6)
                     Text(data.publishTime ?? "")
                         .foregroundColor(Color.init(red: 0.6, green: 0.6, blue: 0.6))
-                        .font(.subheadline)
-                        .padding(.top, 1)
+                        .font(Font.system(size: 14))
                 }
             }
             .padding(.top, 10)
-            VStack(alignment: .leading, spacing: 6) {
-                Text(data.content ?? "")
-                    .foregroundColor(Color.init(red: 0.2, green: 0.2, blue: 0.2))
-                    .bold()
-                    .font(Font.system(size: 16))
-            }.padding(.vertical, 6)
-        }
-    }
-    
-    @ViewBuilder
-    private var AvatarView: some View {
-        if let url = URL.init(string: data.user?.avatar ?? "") {
-           AsyncImage(url: url, placeholder: {
-                Text("Loading ...")
-            }, image: { Image(uiImage: $0).resizable() })
-        } else {
-            Image("")
+            Text(data.content ?? "")
+                .foregroundColor(Color.init(red: 0.2, green: 0.2, blue: 0.2))
+                .font(Font.system(size: 14))
+                .lineSpacing(6)
+                .fixedSize(horizontal: false, vertical: true)
+            if (data.originalPictures?.count != 0) {
+                LazyVGrid(columns: gridItemLayout, spacing: 20) {
+                    ForEach(data.originalPictures ?? [], id: \.self) { data in
+                        CHImage(src: data, type: .illustration)
+                            .scaledToFit()
+                            .aspectRatio(1, contentMode: .fill)
+                            .clipShape(
+                                Rectangle()
+                            )
+                    }
+                    .padding(.top, 10)
+                }
+            }
+            if (!data.original!) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("@\(data.retweetUser ?? "")")
+                        .foregroundColor(Color.init(red: 0.2, green: 0.2, blue: 0.2))
+                        .font(Font.system(size: 13))
+                        .bold()
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(data.retweetContent ?? "")
+                        .foregroundColor(Color.init(red: 0.2, green: 0.2, blue: 0.2))
+                        .font(Font.system(size: 13))
+                        .lineSpacing(6)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if (data.retweetPictures?.count != 0) {
+                        LazyVGrid(columns: gridItemLayout, spacing: 20) {
+                            ForEach(data.retweetPictures ?? [], id: \.self) { data in
+                                CHImage(src: data, type: .illustration)
+                                    .scaledToFit()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .clipShape(
+                                        Rectangle()
+                                    )
+                            }
+                            .padding(.top, 10)
+                        }
+                    }
+                    if (data.videoUrl != nil) {
+                        if let url: URL = URL.init(string: data.videoUrl!) {
+                            VStack {
+                                GeometryReader { geometry in
+                                    VideoPlayer(player: AVPlayer(url: url))
+                                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                                }
+                            }
+                            .aspectRatio(1.78, contentMode: .fit)
+                        }
+                    }
+                }
+                .padding(6)
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
+                )
+                .background(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+            }
         }
     }
 }
