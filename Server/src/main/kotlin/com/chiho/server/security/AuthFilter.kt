@@ -1,6 +1,5 @@
 package com.chiho.server.security
 
-import org.springframework.http.HttpStatus
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 import javax.servlet.FilterChain
@@ -22,9 +21,9 @@ class AuthFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val encryptToken:String? = request.getHeader("AUTH-TOKEN")
+        val encryptToken: String? = request.getHeader("AUTH-TOKEN")
 //        if (encryptToken?.let { auth(it) } == true) {
-            filterChain.doFilter(request, response)
+        filterChain.doFilter(request, response)
 //        } else {
 //            response.status = HttpStatus.FORBIDDEN.value()
 //            response.writer.append(HttpStatus.FORBIDDEN.reasonPhrase)

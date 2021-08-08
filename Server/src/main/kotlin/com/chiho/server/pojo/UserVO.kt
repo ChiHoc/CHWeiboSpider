@@ -20,19 +20,4 @@ data class UserVO(var id: String) {
     var weiboNum: Int? = null
     var following: Int? = null
     var followers: Int? = null
-
-    constructor(userDO: UserDO): this(userDO.id) {
-        this.nickname = userDO.nickname
-        this.gender = userDO.gender
-        this.avatar = userDO.avatar
-        this.location = userDO.location
-        this.birthday = userDO.birthday
-        this.description = userDO.description
-        this.talent = userDO.talent
-        this.education = userDO.education
-        this.work = userDO.work
-        this.weiboNum = userDO.weiboNum
-        this.following = userDO.following
-        this.followers = userDO.followers
-    }
 }

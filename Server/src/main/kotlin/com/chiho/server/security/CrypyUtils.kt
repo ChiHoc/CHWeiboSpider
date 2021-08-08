@@ -7,7 +7,6 @@ import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.DESKeySpec
-import kotlin.experimental.and
 
 /**
  * Created by IntelliJ IDEA.
@@ -122,8 +121,10 @@ object CryptUtils {
         return try {
             if (value == null) {
                 ""
-            } else String(decrypt(Base64.decodeBase64(value), key.toByteArray()),
-                StandardCharsets.UTF_8)
+            } else String(
+                decrypt(Base64.decodeBase64(value), key.toByteArray()),
+                StandardCharsets.UTF_8
+            )
         } catch (e: Exception) {
             throw RuntimeException(e)
         }

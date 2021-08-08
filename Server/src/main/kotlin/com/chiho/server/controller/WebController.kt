@@ -1,16 +1,16 @@
 package com.chiho.server.controller
 
-import com.chiho.server.mapper.ArticleMapper
-import com.chiho.server.mapper.UserMapper
-import com.chiho.server.pojo.ArticleDO
-import com.chiho.server.pojo.ArticleVO
-import com.chiho.server.pojo.UserDO
-import com.chiho.server.pojo.UserVO
+import com.chiho.server.service.ArticleService
+import com.chiho.server.service.AssetsService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.core.io.support.ResourceRegion
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.util.AntPathMatcher
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.HandlerMapping
+import javax.servlet.http.HttpServletRequest
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,30 +23,41 @@ import org.springframework.web.bind.annotation.RestController
 class WebController {
 
     @Autowired
-    lateinit var articleMapper: ArticleMapper
-    @Autowired
-    lateinit var userMapper: UserMapper
+    private lateinit var articleService: ArticleService
 
-    // 迟属性（lazy properties）: 其值只在首次访问时计算；
-    val userMap: Map<String, UserDO> by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-        userMapper.list().associateBy { it.id }
-    }
+    @Autowired
+    private lateinit var assetsService: AssetsService
 
     @RequestMapping(value = ["/"], method = [RequestMethod.GET])
     fun index(offset: Int?, limit: Int?): Map<String, Any> {
-        val result: MutableList<ArticleVO> = mutableListOf()
-        val articleDOList: List<ArticleDO> = articleMapper.list(offset ?: 0, limit ?: 10)
-        for (articleDO in articleDOList) {
-            val articleVO = ArticleVO(articleDO)
-            // 防止null
-            articleVO.user = userMap[articleDO.userId]?.let { UserVO(it) }
-            result.add(articleVO)
-        }
-        return mapOf("data" to result, "code" to 200)
+        return mapOf("data" to articleService.list(offset, limit), "code" to 200)
     }
 
-    @RequestMapping(value = ["/assets/{userId}/{filename:[^\\.]+}.{extension:.*}"], method = [RequestMethod.GET])
-    fun assets(@PathVariable userId: String, @PathVariable filename: String, @PathVariable extension: String): Map<String, Any> {
-        return mapOf("data" to "${userId}/${filename}.${extension}", "code" to 200)
+    @RequestMapping(
+        value = ["/assets/{userId}/**"],
+        method = [RequestMethod.GET],
+        produces = ["application/octet-stream"]
+    )
+    fun assets(
+        @RequestHeader(value = "Range", required = false) rangeHeader: String?,
+        @PathVariable userId: String,
+        request: HttpServletRequest
+    ): ResponseEntity<ResourceRegion?>? {
+
+        val filepath: String? = AntPathMatcher().extractPathWithinPattern(
+            request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString(),
+            request.getServletPath()
+        )
+
+        val match = Regex("(?:(.*)/)?([^./]+)\\.(.*)").find(filepath ?: "")!!
+        if (match.groupValues.size == 3) {
+            val (filename, extension) = match.destructured
+            return assetsService.getAssetRegion(rangeHeader, userId, null, filename, extension)
+        }
+        if (match.groupValues.size == 4) {
+            val (path, filename, extension) = match.destructured
+            return assetsService.getAssetRegion(rangeHeader, userId, path, filename, extension)
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
     }
 }

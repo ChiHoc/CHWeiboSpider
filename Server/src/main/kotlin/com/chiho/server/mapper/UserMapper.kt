@@ -1,6 +1,5 @@
 package com.chiho.server.mapper
 
-import com.chiho.server.pojo.ArticleDO
 import com.chiho.server.pojo.UserDO
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
