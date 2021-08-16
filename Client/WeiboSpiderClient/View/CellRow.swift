@@ -78,11 +78,18 @@ struct CellRow: View {
                         }
                     }
                     if (data.videoUrl != nil) {
-                        if let url: URL = URL.init(string: data.videoUrl!) {
+                        if let url: URL = URL.init(string: data.videoUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+                            let player = AVPlayer(url: url)
                             VStack {
                                 GeometryReader { geometry in
-                                    VideoPlayer(player: AVPlayer(url: url))
+                                    VideoPlayer(player: player)
                                         .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                                        .onAppear {
+                                            player.play()
+                                        }
+                                        .onDisappear {
+                                            player.pause()
+                                        }
                                 }
                             }
                             .aspectRatio(1.78, contentMode: .fit)

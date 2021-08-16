@@ -100,7 +100,7 @@ class NetworkManager<ReturnType: Codable>: NSObject {
         AF.request(self.url, method: .get, parameters: parameters, headers: auth_header).validate().responseJSON { response in
             switch response.result {
             case .success(let json):
-                debugPrint(json)
+//                debugPrint(json)
                 if let data = response.data {
                     do {
                         let returnData = try JSONDecoder().decode(ResponseEntry<ReturnType>.self, from: data)

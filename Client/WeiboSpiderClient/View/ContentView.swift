@@ -26,6 +26,16 @@ struct ContentView: View {
                     .foregroundColor(Color.init(red: 0.6, green: 0.6, blue: 0.6))
                     .font(.subheadline)
                 Spacer()
+            } else if self.isLoadFailed {
+                Spacer()
+                Text("加载失败，点击重试")
+                    .foregroundColor(Color.init(red: 0.6, green: 0.6, blue: 0.6))
+                    .font(.subheadline)
+                    .onTapGesture {
+                        fetch()
+                        self.isLoadFailed = false
+                    }
+                Spacer()
             } else {
                 Spacer()
                 ProgressView()
@@ -67,7 +77,7 @@ struct ContentView: View {
                                     self.isLoadAll = true;
                                 }
                              }, failure: {
-                                
+                                self.isLoadFailed = true;
                              })
     }
 }

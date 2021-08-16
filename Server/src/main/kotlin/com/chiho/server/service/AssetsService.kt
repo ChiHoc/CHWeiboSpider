@@ -93,7 +93,7 @@ class AssetsService {
                 contentLength - 1
             }
         }
-        resourceRegion = if (fromRange > 0) {
+        resourceRegion = if (fromRange >= 0) {
             val rangeLength: Long = min(CHUNK_SIZE, toRange - fromRange + 1)
             ResourceRegion(video, fromRange, rangeLength)
         } else {

@@ -44,7 +44,7 @@ class WebController {
         request: HttpServletRequest
     ): ResponseEntity<ResourceRegion?>? {
 
-        val filepath: String? = AntPathMatcher().extractPathWithinPattern(
+        val filepath: String = AntPathMatcher().extractPathWithinPattern(
             request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString(),
             request.getServletPath()
         )

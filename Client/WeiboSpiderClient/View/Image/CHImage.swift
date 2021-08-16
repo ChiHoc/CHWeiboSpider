@@ -14,19 +14,19 @@ enum ImageType {
 
 struct CHImage: View {
     
-    let src: String?
+    let src: String
     let type: ImageType
     
     init(
         src: String?,
         type: ImageType
     ) {
-        self.src = src
+        self.src = src?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         self.type = type
     }
     
     var body: some View {
-        if let url = URL.init(string: src ?? "") {
+        if let url = URL.init(string: src) {
             AsyncImage(url: url, placeholder: {
                 if type == .avatar {
                     Image("avatar").resizable()
@@ -35,7 +35,11 @@ struct CHImage: View {
                 }
             }, image: { Image(uiImage: $0).resizable() })
         } else {
-            Image("avatar").resizable()
+            if type == .avatar {
+                Image("avatar").resizable()
+            } else if type == .illustration {
+                Image("illustration").resizable()
+            }
         }
     }
     
