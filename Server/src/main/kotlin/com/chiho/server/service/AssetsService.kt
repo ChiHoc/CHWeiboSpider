@@ -10,7 +10,6 @@ import org.springframework.http.MediaTypeFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.io.IOException
-import java.lang.Long.min
 
 
 /**
@@ -22,8 +21,6 @@ import java.lang.Long.min
  */
 @Service
 class AssetsService {
-
-    private val CHUNK_SIZE: Long = 1000000L
 
     @Value("\${server.assets.path}")
     private lateinit var assetsPath: String
@@ -94,10 +91,10 @@ class AssetsService {
             }
         }
         resourceRegion = if (fromRange >= 0) {
-            val rangeLength: Long = min(CHUNK_SIZE, toRange - fromRange + 1)
+            val rangeLength: Long = toRange - fromRange + 1
             ResourceRegion(video, fromRange, rangeLength)
         } else {
-            val rangeLength: Long = min(CHUNK_SIZE, contentLength)
+            val rangeLength: Long = toRange - fromRange + 1
             ResourceRegion(video, 0, rangeLength)
         }
         return resourceRegion

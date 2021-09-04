@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import SwiftUIRefresh
 
 let limit = 10;
 
 struct ContentView: View {
     
-    var contentManager = NetworkManager<[ContentEntry]>(url: "http://localhost:8080")
+    var contentManager = NetworkManager<[ContentEntry]>(url: "http://192.168.1.55:8080")
     
     @State private var dataList = [ContentEntry]()
     
+    @State private var isLoading: Bool = false
     @State private var isLoadAll: Bool = false
     @State private var isLoadFailed: Bool = false
     
@@ -55,6 +57,12 @@ struct ContentView: View {
                 }
                 RefreshListener
             }
+            .pullToRefresh(isShowing: $isLoading) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.isLoading = false
+                    refresh()
+                }
+            }
             .navigationTitle("微博")
         }
     }
@@ -62,22 +70,24 @@ struct ContentView: View {
     private func refresh() {
         contentManager.fetch(parameters: ["offset": 0, "limit": limit],
                              success: { dataList in
-                                self.dataList = dataList ?? []
-                             }, failure: {
-                                
-                             })
+            self.dataList = dataList ?? []
+            self.isLoadAll = false
+            self.isLoading = false
+        }, failure: {
+            self.isLoading = false
+        })
     }
     
     private func fetch() {
         contentManager.fetch(parameters: ["offset": dataList.count, "limit": limit],
                              success: { dataList in
-                                if (dataList?.count ?? 0 > 0) {
-                                    self.dataList.append(contentsOf: dataList!)
-                                } else {
-                                    self.isLoadAll = true;
-                                }
-                             }, failure: {
-                                self.isLoadFailed = true;
-                             })
+            if (dataList?.count ?? 0 > 0) {
+                self.dataList.append(contentsOf: dataList!)
+            } else {
+                self.isLoadAll = true
+            }
+        }, failure: {
+            self.isLoadFailed = true
+        })
     }
 }

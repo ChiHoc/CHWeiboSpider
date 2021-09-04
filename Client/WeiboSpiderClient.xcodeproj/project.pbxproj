@@ -20,6 +20,9 @@
 		A16E4DA9267479B8000679EE /* ContentEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16E4DA7267479B8000679EE /* ContentEntry.swift */; };
 		A16E4DAA267479B8000679EE /* UserEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16E4DA8267479B8000679EE /* UserEntry.swift */; };
 		A1764B40268A097A002D7409 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1764B3F268A097A002D7409 /* AsyncImage.swift */; };
+		A1E72D7826E3716800FF9A44 /* CHVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E72D7726E3716800FF9A44 /* CHVideo.swift */; };
+		A1E72D7B26E378AF00FF9A44 /* UIViewController+Present.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E72D7A26E378AF00FF9A44 /* UIViewController+Present.swift */; };
+		A1E72D7D26E378EE00FF9A44 /* CHImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E72D7C26E378EE00FF9A44 /* CHImagePreview.swift */; };
 		A1FF55F826871D660017E80E /* ResponseEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF55F726871D660017E80E /* ResponseEntry.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +65,9 @@
 		A16E4DA7267479B8000679EE /* ContentEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentEntry.swift; sourceTree = "<group>"; };
 		A16E4DA8267479B8000679EE /* UserEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEntry.swift; sourceTree = "<group>"; };
 		A1764B3F268A097A002D7409 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		A1E72D7726E3716800FF9A44 /* CHVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHVideo.swift; sourceTree = "<group>"; };
+		A1E72D7A26E378AF00FF9A44 /* UIViewController+Present.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Present.swift"; sourceTree = "<group>"; };
+		A1E72D7C26E378EE00FF9A44 /* CHImagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHImagePreview.swift; sourceTree = "<group>"; };
 		A1FF55F726871D660017E80E /* ResponseEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +119,7 @@
 			children = (
 				A1764B3F268A097A002D7409 /* AsyncImage.swift */,
 				A104663126B4F1AE005935A1 /* CHImage.swift */,
+				A1E72D7C26E378EE00FF9A44 /* CHImagePreview.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -128,6 +135,8 @@
 		A1675B972680D6BA00F95B65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A1E72D7926E3789C00FF9A44 /* Extension */,
+				A1E72D7626E3715300FF9A44 /* Viedo */,
 				A104663326B4F2F8005935A1 /* Image */,
 				A16E4D7D26747995000679EE /* ContentView.swift */,
 				A1675B982680D6CF00F95B65 /* CellRow.swift */,
@@ -205,6 +214,22 @@
 				A1FF55F726871D660017E80E /* ResponseEntry.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A1E72D7626E3715300FF9A44 /* Viedo */ = {
+			isa = PBXGroup;
+			children = (
+				A1E72D7726E3716800FF9A44 /* CHVideo.swift */,
+			);
+			path = Viedo;
+			sourceTree = "<group>";
+		};
+		A1E72D7926E3789C00FF9A44 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A1E72D7A26E378AF00FF9A44 /* UIViewController+Present.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,9 +389,12 @@
 			files = (
 				A1764B40268A097A002D7409 /* AsyncImage.swift in Sources */,
 				A16E4DA9267479B8000679EE /* ContentEntry.swift in Sources */,
+				A1E72D7826E3716800FF9A44 /* CHVideo.swift in Sources */,
+				A1E72D7D26E378EE00FF9A44 /* CHImagePreview.swift in Sources */,
 				A1FF55F826871D660017E80E /* ResponseEntry.swift in Sources */,
 				A1675B962680D12700F95B65 /* NetworkManager.swift in Sources */,
 				A16E4D7E26747995000679EE /* ContentView.swift in Sources */,
+				A1E72D7B26E378AF00FF9A44 /* UIViewController+Present.swift in Sources */,
 				A16E4D7C26747995000679EE /* WeiboSpiderClientApp.swift in Sources */,
 				A1675B992680D6CF00F95B65 /* CellRow.swift in Sources */,
 				A16E4DAA267479B8000679EE /* UserEntry.swift in Sources */,

@@ -99,7 +99,7 @@ class NetworkManager<ReturnType: Codable>: NSObject {
         let auth_header = HTTPHeaders.init([ "AUTH-TOKEN" : data.desEncrypt(key: key) ?? "" ])
         AF.request(self.url, method: .get, parameters: parameters, headers: auth_header).validate().responseJSON { response in
             switch response.result {
-            case .success(let json):
+            case .success(_):
 //                debugPrint(json)
                 if let data = response.data {
                     do {

@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
-import AVKit
 
 struct CellRow: View {
-    var data: ContentEntry
+    @State var data: ContentEntry
     private let gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
@@ -52,6 +51,9 @@ struct CellRow: View {
                     .padding(.top, 10)
                 }
             }
+            if (data.original! && data.videoUrl != nil) {
+                CHVideo(src: data.videoUrl)
+            }
             if (!data.original!) {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("@\(data.retweetUser ?? "")")
@@ -78,22 +80,7 @@ struct CellRow: View {
                         }
                     }
                     if (data.videoUrl != nil) {
-                        if let url: URL = URL.init(string: data.videoUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
-                            let player = AVPlayer(url: url)
-                            VStack {
-                                GeometryReader { geometry in
-                                    VideoPlayer(player: player)
-                                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                                        .onAppear {
-                                            player.play()
-                                        }
-                                        .onDisappear {
-                                            player.pause()
-                                        }
-                                }
-                            }
-                            .aspectRatio(1.78, contentMode: .fit)
-                        }
+                        CHVideo(src: data.videoUrl)
                     }
                 }
                 .padding(6)

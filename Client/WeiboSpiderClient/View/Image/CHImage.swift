@@ -14,6 +14,8 @@ enum ImageType {
 
 struct CHImage: View {
     
+    @Environment(\.viewController) private var holder
+    
     let src: String
     let type: ImageType
     
@@ -33,7 +35,24 @@ struct CHImage: View {
                 } else if type == .illustration {
                     Image("illustration").resizable()
                 }
-            }, image: { Image(uiImage: $0).resizable() })
+            }, image: {
+                Image(uiImage: $0)
+                    .resizable()
+            })
+                .onTapGesture {
+                    holder?.present { CHImagePreview(view: {
+                        AsyncImage(url: url, placeholder: {
+                            if type == .avatar {
+                                Image("avatar").resizable()
+                            } else if type == .illustration {
+                                Image("illustration").resizable()
+                            }
+                        }, image: {
+                            Image(uiImage: $0)
+                                .resizable()
+                        })
+                    }) }
+                }
         } else {
             if type == .avatar {
                 Image("avatar").resizable()

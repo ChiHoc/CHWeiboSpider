@@ -1,3 +1,4 @@
 target 'WeiboSpiderClient' do
   pod 'Alamofire'
+  pod "SwiftUIRefresh"
 end

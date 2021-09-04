@@ -77,12 +77,17 @@ class ArticleSerializer {
         )
 
         val ary = articleDO.content?.split("\n")
-        if (ary == null || ary.size != 3) {
+        if (ary == null || ary.size <= 1) {
             return articleVO
         }
-        articleVO.content = ary[0].substring(5)
-        articleVO.retweetUser = ary[1].substring(5)
-        articleVO.retweetContent = ary[2].substring(5)
+        if (ary.size == 2) {
+            articleVO.content = ary[0].substring(5)
+            articleVO.retweetContent = ary[1].substring(5)
+        } else {
+            articleVO.content = ary[0].substring(5)
+            articleVO.retweetUser = ary[1].substring(5)
+            articleVO.retweetContent = ary[2].substring(5)
+        }
         return articleVO
     }
 
